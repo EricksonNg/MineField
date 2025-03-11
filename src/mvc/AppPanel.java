@@ -52,6 +52,8 @@ public class AppPanel extends JPanel implements ActionListener {
 
     protected JPanel createPanel() {
         JPanel p = new JPanel();
+        p.setLayout(new GridLayout(4, 2, 20, 20));
+        p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         JButton north = new JButton("N");
         north.addActionListener(this);
         p.add(north);

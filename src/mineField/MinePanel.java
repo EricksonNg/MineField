@@ -19,7 +19,7 @@ public class MinePanel extends AppPanel {
     public MinePanel(AppFactory factory) {
         super(factory);
 
-        model = new Mine();
+        model = new Field();
         view = new MineView(model);
         controlPanel = new JPanel();
         controlPanel.setBackground(Color.PINK);

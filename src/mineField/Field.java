@@ -4,12 +4,11 @@ import mvc.Model;
 
 import java.util.Random;
 
-public class Mine extends Model {
+public class Field extends Model {
     private static final int GRID_SIZE = 10;
     private static final int PERCENT_MINED = 5;
 
-    private final boolean[][] minefield;
-    private final int[][] grid;
+    private final Cell[][] minefield;
     private GameState gameState = GameState.RUNNING;
     private int x = 0;
     private int y = 0;
@@ -20,22 +19,22 @@ public class Mine extends Model {
         SUCCESS
     }
 
-    public Mine() {
+    public Field() {
         minefield = generateMinefield();
-        grid = new int[GRID_SIZE][GRID_SIZE];
     }
 
     // Assumes unwinnable grid is possible
     // Top left and bottom right are never mined
-    private boolean[][] generateMinefield() {
-        boolean[][] minefield = new boolean[GRID_SIZE][GRID_SIZE];
+    private Cell[][] generateMinefield() {
+        Cell[][] minefield = new Cell[GRID_SIZE][GRID_SIZE];
         Random rand = new Random();
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 if (row == 0 && col == 0 || successCondition(row, col)) {
                     continue;
                 }
-                minefield[row][col] = rand.nextInt(100) < PERCENT_MINED;
+                boolean mineDecision = rand.nextInt(100) < PERCENT_MINED;
+                minefield[row][col] = new Cell(row, col, mineDecision);
             }
         }
         return minefield;
@@ -62,15 +61,14 @@ public class Mine extends Model {
         val += isMinedCell(x + 1, y + 1) ? 1 : 0;
         val += isMinedCell(x + 1, y) ? 1 : 0;
         val += isMinedCell(x + 1, y - 1) ? 1 : 0;
-        grid[x][y] = val;
+        minefield[y][x].setAdjacent(val);
     }
 
     private boolean isMinedCell(int x, int y) {
         if (!isValidCell(x, y)) {
             return false;
         }
-
-        return minefield[x][y];
+        return minefield[y][x].isMined();
     }
 
     private boolean successCondition(int x, int y) {
@@ -89,8 +87,8 @@ public class Mine extends Model {
         return y;
     }
 
-    public int[][] getGrid() {
-         return grid;
+    public Cell[][] getMinefield() {
+         return minefield;
     }
 
     public GameState getGameState() {

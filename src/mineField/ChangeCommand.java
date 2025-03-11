@@ -3,7 +3,7 @@ package mineField;
 import tools.Command;
 
 public class ChangeCommand extends Command {
-    public ChangeCommand(Mine model) {
+    public ChangeCommand(Field model) {
         super(model);
     }
 
