@@ -3,31 +3,17 @@ package mvc;
 import tools.Command;
 
 public interface AppFactory {
-    public static void makeMode() {
-        // this is supposed to return a Model
-    }
+    Model makeModel();
 
-    public static View makeView() {
-        return new View();
-    }
+    View makeView(Model model);
 
-    public static String getTitle() {
-        return "Mine Field";
-    }
+    String getTitle();
 
-    public static String getHelp() {
-        return "Help";
-    }
+    String getAbout();
 
-    public static String about() {
-        return "About";
-    }
+    String getHelp();
 
-    public static String getEditCommands() {
-        return "Edit";
-    }
+    String[] getEditCommands();
 
-    public static void makeEditCommands(String name) {
-        // this is supposed to return a Command
-    }
+    Command makeEditCommand(String name, Model model);
 }
