@@ -1,0 +1,21 @@
+package tools;
+
+import java.util.ArrayList;
+
+public class Publisher {
+    ArrayList<Subscriber> subscriberList = new ArrayList<>();
+
+    public void notifySubscribers() {
+        for (Subscriber subscriber : subscriberList) {
+            subscriber.update();
+        }
+    }
+
+    public void subscribe(Subscriber subscriber) {
+        subscriberList.add(subscriber);
+    }
+
+    public void unSubscribe(Subscriber subscriber) {
+        subscriberList.remove(subscriber);
+    }
+}
