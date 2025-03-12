@@ -9,32 +9,50 @@ package mineField;
 
 import mvc.AppFactory;
 import mvc.AppPanel;
-import mvc.SafeFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class MinePanel extends AppPanel {
 
     public MinePanel(AppFactory factory) {
         super(factory);
+        createButtons(this);
+    }
 
-        model = new Field();
-        view = new MineView(model);
-        controlPanel = new JPanel();
-        controlPanel.setBackground(Color.PINK);
-        JPanel p = createPanel();
+    protected void createButtons(ActionListener listener) {
+        System.out.println(1);
+        JPanel p = new JPanel();
+        p.setLayout(new GridLayout(3, 3));
+
+        JButton north = new JButton("N");
+        JButton northWest = new JButton("NW");
+        JButton northEast = new JButton("NE");
+        JButton west = new JButton("W");
+        JButton east = new JButton("E");
+        JButton southWest = new JButton("SW");
+        JButton south = new JButton("S");
+        JButton southEast = new JButton("SE");
+
+        p.add(north);
+        p.add(northWest);
+        p.add(northEast);
+        p.add(west);
+        p.add(east);
+        p.add(southWest);
+        p.add(south);
+        p.add(southEast);
+
+        north.addActionListener(listener);
+        northWest.addActionListener(listener);
+        northEast.addActionListener(listener);
+        west.addActionListener(listener);
+        east.addActionListener(listener);
+        southWest.addActionListener(listener);
+        south.addActionListener(listener);
+        southEast.addActionListener(listener);
+
         controlPanel.add(p);
-        this.setLayout((new GridLayout(1, 2)));
-        this.add(controlPanel);
-        this.add(view);
-
-        frame = new SafeFrame();
-        Container cp = frame.getContentPane();
-        cp.add(this);
-        frame.setJMenuBar(createMenuBar());
-        frame.setTitle(AppFactory.getTitle());
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        display();
     }
 }

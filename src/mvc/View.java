@@ -4,17 +4,14 @@ import tools.Subscriber;
 import javax.swing.*;
 import java.awt.*;
 
-public class View extends JPanel implements Subscriber {
+public abstract class View extends JPanel implements Subscriber {
+    protected final Model model;
 
-    public View() {
-
+    public View(Model model) {
+        this.model = model;
     }
 
-    public void update() {
+    public abstract void update();
 
-    }
-
-    public void paintComponent(Graphics gc) {
-
-    }
+    public abstract void paintComponent(Graphics gc);
 }
