@@ -31,6 +31,7 @@ public class Field extends Model {
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 if (row == 0 && col == 0 || successCondition(row, col)) {
+                    minefield[row][col] = new Cell(row, col, false);
                     continue;
                 }
                 boolean mineDecision = rand.nextInt(100) < PERCENT_MINED;
