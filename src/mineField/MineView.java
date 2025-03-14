@@ -12,7 +12,9 @@ public class MineView extends View {
         repaint();
     }
 
+    @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         int x = 0;
         int y = 0;
         int width = getWidth()/10;
@@ -65,5 +67,6 @@ public class MineView extends View {
             x = 0;
             y += height;
         }
+
     }
 }
