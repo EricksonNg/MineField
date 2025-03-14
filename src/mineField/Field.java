@@ -21,6 +21,7 @@ public class Field extends Model {
 
     public Field() {
         minefield = generateMinefield();
+        setPosition(0, 0);
     }
 
     // Assumes unwinnable grid is possible
@@ -62,6 +63,7 @@ public class Field extends Model {
         val += isMinedCell(x + 1, y + 1) ? 1 : 0;
         val += isMinedCell(x + 1, y) ? 1 : 0;
         val += isMinedCell(x + 1, y - 1) ? 1 : 0;
+        minefield[y][x].setVisible(true);
         minefield[y][x].setAdjacent(val);
     }
 
