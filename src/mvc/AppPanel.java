@@ -28,6 +28,8 @@ public abstract class AppPanel extends JPanel implements Subscriber, ActionListe
         model = factory.makeModel();
         view = factory.makeView(model);
         controlPanel = new JPanel();
+        controlPanel.setBackground(Color.LIGHT_GRAY);
+        controlPanel.setLayout(new GridLayout(1, 2));
 
         this.setLayout(new GridLayout(1, 2));
         this.add(controlPanel);
@@ -86,7 +88,10 @@ public abstract class AppPanel extends JPanel implements Subscriber, ActionListe
                 case "About" -> Utilities.inform(factory.getAbout());
                 case "Help" -> Utilities.inform(factory.getHelp());
 
-                default -> factory.makeEditCommand(cmmd, model).execute();
+                default -> {
+                    factory.makeEditCommand(cmmd, model).execute();
+                    view.update();
+                }
             }
 
         } catch (Exception ex) {

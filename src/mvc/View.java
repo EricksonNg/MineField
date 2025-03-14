@@ -13,5 +13,8 @@ public abstract class View extends JPanel implements Subscriber {
 
     public abstract void update();
 
-    public abstract void paintComponent(Graphics gc);
+    @Override
+    public void paintComponent(Graphics gc) {
+        super.paintComponent(gc);
+    }
 }

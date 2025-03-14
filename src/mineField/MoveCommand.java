@@ -31,14 +31,14 @@ public class MoveCommand extends Command {
         int x = field.getX();
         int y = field.getY();
         switch (heading) {
-            case NW -> field.setPosition(x - 1, y + 1);
-            case N -> field.setPosition(x, y + 1);
-            case NE -> field.setPosition(x + 1, y + 1);
+            case NW -> field.setPosition(x - 1, y - 1);
+            case N -> field.setPosition(x, y - 1);
+            case NE -> field.setPosition(x + 1, y - 1);
             case W -> field.setPosition(x - 1, y);
             case E -> field.setPosition(x + 1, y);
-            case SW -> field.setPosition(x - 1, y - 1);
-            case S -> field.setPosition(x, y - 1);
-            case SE -> field.setPosition(x + 1, y - 1);
+            case SW -> field.setPosition(x - 1, y + 1);
+            case S -> field.setPosition(x, y + 1);
+            case SE -> field.setPosition(x + 1, y + 1);
         }
     }
 }

@@ -21,6 +21,7 @@ public class Field extends Model {
 
     public Field() {
         minefield = generateMinefield();
+        setPosition(0, 0);
     }
 
     // Assumes unwinnable grid is possible
@@ -31,6 +32,7 @@ public class Field extends Model {
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 if (row == 0 && col == 0 || successCondition(row, col)) {
+                    minefield[row][col] = new Cell(row, col, false);
                     continue;
                 }
                 boolean mineDecision = rand.nextInt(100) < PERCENT_MINED;
@@ -61,6 +63,7 @@ public class Field extends Model {
         val += isMinedCell(x + 1, y + 1) ? 1 : 0;
         val += isMinedCell(x + 1, y) ? 1 : 0;
         val += isMinedCell(x + 1, y - 1) ? 1 : 0;
+        minefield[y][x].setVisible(true);
         minefield[y][x].setAdjacent(val);
     }
 

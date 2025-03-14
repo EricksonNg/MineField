@@ -29,4 +29,10 @@ public class Cell {
     public int getAdjacent() {
         return adjacentCount;
     }
+    public String getLook() {
+        if (visible) {
+            return String.valueOf(adjacentCount);
+        }
+        return "?";
+    }
 }
