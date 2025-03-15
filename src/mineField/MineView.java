@@ -1,6 +1,8 @@
 package mineField;
 
 import mvc.*;
+import tools.Utilities;
+
 import java.awt.*;
 
 public class MineView extends View {
@@ -39,6 +41,9 @@ public class MineView extends View {
                         if (r == mineField.length - 1 && c == mineField[0].length - 1) {
                             g.setColor(Color.GREEN);
                         }
+                        if (cell.isMined()) {
+                            g.setColor(Color.RED);
+                        }
                         g.fillRect(x, y, width, height);
                     }
                     else if (cell.isVisible()) {
@@ -67,6 +72,5 @@ public class MineView extends View {
             x = 0;
             y += height;
         }
-
     }
 }
