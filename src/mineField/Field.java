@@ -46,8 +46,14 @@ public class Field extends Model {
         if (!isValidCell(x, y)) {
             return;
         }
-        gameState = isMinedCell(x, y) ? GameState.FAIL : GameState.RUNNING;
-        gameState = successCondition(x, y) ? GameState.SUCCESS : GameState.RUNNING;
+        if (isMinedCell(x, y)) {
+            this.gameState = GameState.FAIL;
+            Utilities.inform("You stepped over a mine.");
+        }
+        if (successCondition(x, y)) {
+            this.gameState = GameState.SUCCESS;
+            Utilities.inform("You have reached the goal.");
+        }
         updateCell(x, y);
         this.x = x;
         this.y = y;
