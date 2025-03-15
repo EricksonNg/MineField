@@ -39,6 +39,9 @@ public class MineView extends View {
                         if (r == mineField.length - 1 && c == mineField[0].length - 1) {
                             g.setColor(Color.GREEN);
                         }
+                        if (cell.isMined()) {
+                            g.setColor(Color.RED);
+                        }
                         g.fillRect(x, y, width, height);
                     }
                     else if (cell.isVisible()) {
