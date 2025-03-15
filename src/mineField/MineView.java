@@ -1,6 +1,8 @@
 package mineField;
 
 import mvc.*;
+import tools.Utilities;
+
 import java.awt.*;
 
 public class MineView extends View {
@@ -70,6 +72,5 @@ public class MineView extends View {
             x = 0;
             y += height;
         }
-
     }
 }

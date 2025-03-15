@@ -2,6 +2,7 @@ package mineField;
 
 import mvc.Model;
 import tools.Command;
+import tools.Utilities;
 
 public class MoveCommand extends Command {
     Heading heading;
@@ -27,7 +28,10 @@ public class MoveCommand extends Command {
         if (!(model instanceof Field field)) {
             return;
         }
-
+        if (field.getGameState() != Field.GameState.RUNNING) {
+            Utilities.inform("Game Over - Movement disabled.");
+            return;
+        }
         int x = field.getX();
         int y = field.getY();
         switch (heading) {
