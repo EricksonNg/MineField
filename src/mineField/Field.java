@@ -1,7 +1,9 @@
 package mineField;
 
 import mvc.Model;
+import tools.Utilities;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Field extends Model {
@@ -44,15 +46,16 @@ public class Field extends Model {
 
     public void setPosition(int x, int y) {
         if (!isValidCell(x, y)) {
+            Utilities.inform("Cannot move off grid.");
             return;
         }
         if (isMinedCell(x, y)) {
             this.gameState = GameState.FAIL;
-            Utilities.inform("You stepped over a mine.");
+            Utilities.inform("You stepped over a mine - Game over.");
         }
         if (successCondition(x, y)) {
             this.gameState = GameState.SUCCESS;
-            Utilities.inform("You have reached the goal.");
+            Utilities.inform("You have reached the goal - Game won.");
         }
         updateCell(x, y);
         this.x = x;
