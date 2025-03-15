@@ -78,7 +78,6 @@ public abstract class AppPanel extends JPanel implements Subscriber, ActionListe
                 case "New" -> {
                     Utilities.saveChanges(model);
                     setModel(factory.makeModel());
-                    //model.setUnsavedChanges(false);
                 }
                 case "Quit" -> {
                     Utilities.saveChanges(model);
@@ -103,7 +102,7 @@ public abstract class AppPanel extends JPanel implements Subscriber, ActionListe
         this.model.unsubscribe(this);
         this.model = newModel;
         this.model.subscribe(this);
-        //view.setModel(this.model);
-        //model.changed();
+        view.setModel(this.model);
+        model.notifySubscribers();
     }
 }

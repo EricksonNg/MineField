@@ -54,13 +54,9 @@ public class Utilities {
 
 
     public static void saveChanges(Model model) {
-        if (Utilities.confirm("current model has unsaved changes, continue?"))
+        if (model.hasUnsavedChanges() && Utilities.confirm("current model has unsaved changes, continue?")) {
             Utilities.save(model, false);
-
-        /*
-        if (model.getUnsavedChanges() && Utilities.confirm("current model has unsaved changes, continue?"))
-            Utilities.save(model, false);
-         */
+        }
     }
 
     // asks user for a file name
@@ -94,11 +90,11 @@ public class Utilities {
         }
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fName));
-            //model.setUnsavedChanges(false);
+            model.setUnsavedChanges(false);
             os.writeObject(model);
             os.close();
         } catch (Exception err) {
-            //model.setUnsavedChanges(true);
+            model.setUnsavedChanges(true);
             Utilities.error(err);
         }
     }
