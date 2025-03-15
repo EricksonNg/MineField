@@ -52,6 +52,13 @@ public class Utilities {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    public static String buildMultilineString(String... strings) {
+        StringBuilder builder = new StringBuilder();
+        for (String string : strings) {
+            builder.append(string).append("\n");
+        }
+        return builder.toString();
+    }
 
     public static void saveChanges(Model model) {
         if (model.hasUnsavedChanges() && Utilities.confirm("current model has unsaved changes, continue?")) {
