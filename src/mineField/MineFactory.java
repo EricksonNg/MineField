@@ -2,10 +2,7 @@ package mineField;
 
 import mvc.*;
 import tools.Command;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import tools.Utilities;
 
 public class MineFactory implements AppFactory {
     @Override
@@ -30,7 +27,13 @@ public class MineFactory implements AppFactory {
 
     @Override
     public String getHelp() {
-        return null;
+        return Utilities.buildMultilineString(
+                "Save: Save minefield to file",
+                "Save As: Save minefield to new file",
+                "Open: Open new minefield from file",
+                "Quit: Quit the program",
+                "Edit: Move in the specified direction"
+        );
     }
 
     @Override
