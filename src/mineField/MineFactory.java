@@ -17,7 +17,7 @@ public class MineFactory implements AppFactory {
 
     @Override
     public String getTitle() {
-        return null;
+        return "MineField";
     }
 
     @Override
