@@ -46,20 +46,22 @@ public class Field extends Model {
 
     public void setPosition(int x, int y) {
         if (!isValidCell(x, y)) {
-            Utilities.inform("Cannot move off grid.");
+            Utilities.inform("Cannot move off grid");
             return;
-        }
-        if (isMinedCell(x, y)) {
-            this.gameState = GameState.FAIL;
-            Utilities.inform("You stepped over a mine - Game over.");
-        }
-        if (successCondition(x, y)) {
-            this.gameState = GameState.SUCCESS;
-            Utilities.inform("You have reached the goal - Game won.");
         }
         updateCell(x, y);
         this.x = x;
         this.y = y;
+        if (isMinedCell(x, y)) {
+            this.gameState = GameState.FAIL;
+            Utilities.inform("You stepped on a mine... Game over");
+            notifySubscribers();
+        }
+        if (successCondition(x, y)) {
+            this.gameState = GameState.SUCCESS;
+            Utilities.inform("You survived... Game over");
+            notifySubscribers();
+        }
     }
 
     private void updateCell(int x, int y) {
@@ -74,6 +76,7 @@ public class Field extends Model {
         val += isMinedCell(x + 1, y - 1) ? 1 : 0;
         minefield[y][x].setVisible(true);
         minefield[y][x].setAdjacent(val);
+        notifySubscribers();
     }
 
     private boolean isMinedCell(int x, int y) {
