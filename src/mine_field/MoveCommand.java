@@ -1,11 +1,11 @@
-package mineField;
+package mine_field;
 
 import mvc.Model;
 import tools.Command;
 import tools.Utilities;
 
 public class MoveCommand extends Command {
-    Heading heading;
+    private final Heading heading;
 
     public MoveCommand(Model model, Heading heading) {
         super(model);

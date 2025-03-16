@@ -1,7 +1,6 @@
-package mineField;
+package mine_field;
 
 import mvc.*;
-import tools.Utilities;
 
 import java.awt.*;
 

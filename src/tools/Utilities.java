@@ -124,8 +124,8 @@ public class Utilities {
     // simple menu maker
     public static JMenu makeMenu(String name, String[] items, ActionListener handler) {
         JMenu result = new JMenu(name);
-        for (int i = 0; i < items.length; i++) {
-            JMenuItem item = new JMenuItem(items[i]);
+        for (String s : items) {
+            JMenuItem item = new JMenuItem(s);
             item.addActionListener(handler);
             result.add(item);
         }

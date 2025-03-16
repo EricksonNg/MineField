@@ -1,16 +1,8 @@
-/**
- * Filename: MinePanel.java
- * Description: Panel for the Minefield Application
- * Author: Erickson Ng
- * Last Modified: 3/10/25
- */
-
-package mineField;
+package mine_field;
 
 import mvc.AppFactory;
 import mvc.AppPanel;
 import mvc.Model;
-import tools.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MinePanel extends AppPanel {
+    private final JButton playAgainButton = new JButton("Play Again");
 
     public MinePanel(AppFactory factory) {
         super(factory);
@@ -28,20 +21,12 @@ public class MinePanel extends AppPanel {
     @Override
     public void update() {
         Field field = (Field) model;
-        if (field.getGameState() != Field.GameState.RUNNING) {
-            updatePlayAgain(true);
-            System.out.println("updated panel");
-        }
-        else {
-            updatePlayAgain(false);
-        }
+        updatePlayAgain(field.getGameState() != Field.GameState.RUNNING);
         controlPanel.revalidate();
         controlPanel.repaint();
     }
 
-    private JButton empty = new JButton("Play Again");
     protected void createButtons(ActionListener listener) {
-        System.out.println(1);
         JPanel p = new JPanel();
         p.setLayout(new GridLayout(3, 3));
 
@@ -49,7 +34,7 @@ public class MinePanel extends AppPanel {
         JButton north = new JButton("N");
         JButton northEast = new JButton("NE");
         JButton west = new JButton("W");
-        empty.setVisible(false);
+        playAgainButton.setVisible(false);
         JButton east = new JButton("E");
         JButton southWest = new JButton("SW");
         JButton south = new JButton("S");
@@ -59,7 +44,7 @@ public class MinePanel extends AppPanel {
         p.add(north);
         p.add(northEast);
         p.add(west);
-        p.add(empty);
+        p.add(playAgainButton);
         p.add(east);
         p.add(southWest);
         p.add(south);
@@ -73,12 +58,13 @@ public class MinePanel extends AppPanel {
         southWest.addActionListener(listener);
         south.addActionListener(listener);
         southEast.addActionListener(listener);
-        empty.addActionListener(listener);
+        playAgainButton.addActionListener(listener);
 
         controlPanel.add(p);
     }
+
     public void updatePlayAgain(boolean visible) {
-        empty.setVisible(visible);
+        playAgainButton.setVisible(visible);
     }
 
     @Override
@@ -92,6 +78,7 @@ public class MinePanel extends AppPanel {
             super.actionPerformed(e); // all other parent cases handled
         }
     }
+
     public void replaceModel(Model newModel) {
         // Unsubscribe and update the model
         model.unsubscribe(this);

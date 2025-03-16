@@ -1,4 +1,4 @@
-package mineField;
+package mine_field;
 
 import mvc.*;
 import tools.Command;

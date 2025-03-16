@@ -1,10 +1,3 @@
-/**
- * Filename: AppPanel
- * Description: MVC Controller
- * Author: Erickson Ng
- * Last Modified Date: 3/10/25
- */
-
 package mvc;
 
 import tools.*;
