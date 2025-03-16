@@ -1,9 +1,8 @@
-package mineField;
+package mine_field;
 
 import mvc.Model;
 import tools.Utilities;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Field extends Model {
@@ -34,11 +33,11 @@ public class Field extends Model {
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 if (row == 0 && col == 0 || successCondition(row, col)) {
-                    minefield[row][col] = new Cell(row, col, false);
+                    minefield[row][col] = new Cell(false);
                     continue;
                 }
                 boolean mineDecision = rand.nextInt(100) < PERCENT_MINED;
-                minefield[row][col] = new Cell(row, col, mineDecision);
+                minefield[row][col] = new Cell(mineDecision);
             }
         }
         return minefield;

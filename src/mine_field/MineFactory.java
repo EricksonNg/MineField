@@ -1,4 +1,4 @@
-package mineField;
+package mine_field;
 
 import mvc.*;
 import tools.Command;
@@ -17,7 +17,7 @@ public class MineFactory implements AppFactory {
 
     @Override
     public String getTitle() {
-        return null;
+        return "MineField";
     }
 
     @Override
