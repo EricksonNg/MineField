@@ -29,7 +29,7 @@ public class MoveCommand extends Command {
             return;
         }
         if (field.getGameState() != Field.GameState.RUNNING) {
-            Utilities.inform("Game Over - Movement disabled.");
+            Utilities.inform("Game Over - Movement disabled");
             return;
         }
         int x = field.getX();

@@ -9,9 +9,12 @@ package mineField;
 
 import mvc.AppFactory;
 import mvc.AppPanel;
+import mvc.Model;
+import tools.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MinePanel extends AppPanel {
@@ -19,8 +22,24 @@ public class MinePanel extends AppPanel {
     public MinePanel(AppFactory factory) {
         super(factory);
         createButtons(this);
+        model.subscribe(this);
     }
 
+    @Override
+    public void update() {
+        Field field = (Field) model;
+        if (field.getGameState() != Field.GameState.RUNNING) {
+            updatePlayAgain(true);
+            System.out.println("updated panel");
+        }
+        else {
+            updatePlayAgain(false);
+        }
+        controlPanel.revalidate();
+        controlPanel.repaint();
+    }
+
+    private JButton empty = new JButton("Play Again");
     protected void createButtons(ActionListener listener) {
         System.out.println(1);
         JPanel p = new JPanel();
@@ -30,7 +49,7 @@ public class MinePanel extends AppPanel {
         JButton north = new JButton("N");
         JButton northEast = new JButton("NE");
         JButton west = new JButton("W");
-        JLabel empty = new JLabel();
+        empty.setVisible(false);
         JButton east = new JButton("E");
         JButton southWest = new JButton("SW");
         JButton south = new JButton("S");
@@ -54,7 +73,37 @@ public class MinePanel extends AppPanel {
         southWest.addActionListener(listener);
         south.addActionListener(listener);
         southEast.addActionListener(listener);
+        empty.addActionListener(listener);
 
         controlPanel.add(p);
+    }
+    public void updatePlayAgain(boolean visible) {
+        empty.setVisible(visible);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String cmmd = e.getActionCommand();
+        if ("Play Again".equals(cmmd)) { // intercept this case first
+            Model newModel = factory.makeModel();
+            updatePlayAgain(false);
+            replaceModel(newModel);
+        } else {
+            super.actionPerformed(e); // all other parent cases handled
+        }
+    }
+    public void replaceModel(Model newModel) {
+        // Unsubscribe and update the model
+        model.unsubscribe(this);
+        this.model = newModel;
+        newModel.subscribe(this);
+        view.setModel(newModel);
+        newModel.notifySubscribers();
+
+        // Rebuild the control panel so that new action listeners are created
+        controlPanel.removeAll();
+        createButtons(this);
+        controlPanel.revalidate();
+        controlPanel.repaint();
     }
 }

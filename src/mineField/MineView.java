@@ -8,6 +8,7 @@ import java.awt.*;
 public class MineView extends View {
     public MineView(Field field) {
         super(field);
+        model.subscribe(this);
     }
 
     public void update() {
