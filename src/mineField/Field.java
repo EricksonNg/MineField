@@ -54,12 +54,12 @@ public class Field extends Model {
         this.y = y;
         if (isMinedCell(x, y)) {
             this.gameState = GameState.FAIL;
-            Utilities.inform("You stepped on a mine... Game over");
+            Utilities.inform("You stepped on a mine - Game over");
             notifySubscribers();
         }
         if (successCondition(x, y)) {
             this.gameState = GameState.SUCCESS;
-            Utilities.inform("You survived... Game over");
+            Utilities.inform("You survived - Game over");
             notifySubscribers();
         }
     }
