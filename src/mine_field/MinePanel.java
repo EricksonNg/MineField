@@ -3,6 +3,7 @@ package mine_field;
 import mvc.AppFactory;
 import mvc.AppPanel;
 import mvc.Model;
+import tools.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,9 +74,47 @@ public class MinePanel extends AppPanel {
         if ("Play Again".equals(cmmd)) { // intercept this case first
             Model newModel = factory.makeModel();
             updatePlayAgain(false);
+            // "Play Again" starts new game without saving
             replaceModel(newModel);
-        } else {
-            super.actionPerformed(e); // all other parent cases handled
+        }
+        try {
+            // rewriting switch from AppPanel because we want to handle our own "MoveException"
+            switch (cmmd) {
+                case "Save" -> Utilities.save(model, false);
+                case "Save As" -> Utilities.save(model, true);
+                case "Open" -> {
+                    Model newModel = Utilities.open(model);
+                    if (newModel != null) {
+                        replaceModel(newModel);
+                    }
+                }
+                case "New" -> {
+                    Utilities.saveChanges(model);
+                    replaceModel(factory.makeModel());
+                }
+                case "Quit" -> {
+                    Utilities.saveChanges(model);
+                    System.exit(0);
+                }
+                case "About" -> Utilities.inform(factory.getAbout());
+                case "Help" -> Utilities.inform(factory.getHelp());
+                default -> {
+                    factory.makeEditCommand(cmmd, model).execute();
+                    view.update();
+                }
+            }
+        }
+        catch (MoveException exception) {
+            String message;
+            System.out.println(exception.getType());
+            switch (exception.getType()) {
+                case INVALID -> message = "Cannot move off the grid.";
+                case DISABLED -> message = "Game has ended. Movement is disabled.";
+                case WIN -> message = "You survived. GAME WON.";
+                case LOSS -> message = "You stepped on a mine. GAME OVER.";
+                default -> message = "Unknown error occurred.";
+            }
+            Utilities.inform(message);
         }
     }
 

@@ -28,10 +28,6 @@ public class MoveCommand extends Command {
         if (!(model instanceof Field field)) {
             return;
         }
-        if (field.getGameState() != Field.GameState.RUNNING) {
-            Utilities.inform("Game Over - Movement disabled");
-            return;
-        }
         int x = field.getX();
         int y = field.getY();
         switch (heading) {
